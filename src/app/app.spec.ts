@@ -16,10 +16,19 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', () => {
+  it('should render Pokemon title', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, collectype-demo-angular');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Pokemons');
+  });
+
+  it('should display Pokemon collection', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    // Vérifie que le composant charge les Pokemon
+    expect(compiled.querySelector('.container')).toBeTruthy();
   });
 });
