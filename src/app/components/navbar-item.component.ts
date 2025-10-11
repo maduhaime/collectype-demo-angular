@@ -6,23 +6,22 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   host: {
-    'class': 'is-flex'
+    '(click)': 'handleClick()',
+    'class': 'navbar-item',
+    '[class.is-active]': 'piping() === filter()'
   },
-  template: `
-    <a
-      (click)="handleClick()"
-      class="navbar-item"
-      [class.is-active]="piping() === filter()">
-      <ng-content></ng-content>
-    </a>
-  `,
+  template: `<ng-content></ng-content>`,
   styles: [`
-    .navbar-item {
+    :host {
       font-weight: bold;
-    }
 
-    .is-active {
-      background-color: rgba(255, 255, 255, 0.25);
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.is-active {
+        background-color: rgba(255, 255, 255, 0.25);
+      }
     }
   `]
 })

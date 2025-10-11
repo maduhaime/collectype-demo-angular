@@ -14,14 +14,17 @@
     <div class="container">
       <app-pokemon-stats class="mb-6 is-hidden-mobile" [pokemons]="collection().items" />
 
-      <app-filter-navbar
-        [piping]="piping()"
-        [count]="filtered().count"
-        (change)="handleNavChange($event)" />
+      <div class="block mb-5">
+        <app-filter-navbar
+          [piping]="piping()"
+          [count]="filtered().count"
+          (change)="handleNavChange($event)" />
+      </div>
 
-      <app-filter-breadcrumb [piping]="piping()" />
 
-      <app-pokemon-type-stats [pokemons]="filtered().items" />
+      <app-filter-breadcrumb class="mb-5 is-hidden-mobile" [piping]="piping()" />
+
+      <app-pokemon-type-stats class="is-hidden-touch" [pokemons]="filtered().items" />
 
       <app-sort-navbar class="mb-5"
         [sortField]="sortField()"

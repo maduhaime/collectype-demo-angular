@@ -13,22 +13,20 @@ import { capitalize, padLeft } from '../../utils/string';
     'class': 'is-block'
   },
   template: `
-    <div class="is-hidden-touch">
-      <hr />
-      <nav class="level">
-        @for (type of pokemonTypes; track type) {
-          <div class="level-item has-text-centered">
-            <div>
-              <p class="heading is-size-7">{{ capitalize(type) }}</p>
-              <p class="title has-text-primary is-size-4">
-                {{ padLeft(collection().fn.arrayIncludes('types', type).count, '0', 2) }}
-              </p>
-            </div>
+    <hr />
+    <nav class="level">
+      @for (type of pokemonTypes; track type) {
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading is-size-7">{{ capitalize(type) }}</p>
+            <p class="title has-text-primary is-size-4">
+              {{ padLeft(collection().fn.arrayIncludes('types', type).count, '0', 2) }}
+            </p>
           </div>
-        }
-      </nav>
-      <hr />
-    </div>
+        </div>
+      }
+    </nav>
+    <hr />
   `
 })
 export class PokemonTypeStatsComponent {

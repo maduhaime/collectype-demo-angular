@@ -7,11 +7,12 @@ import { NavbarItemComponent } from './navbar-item.component';
   standalone: true,
   imports: [CommonModule, NavbarItemComponent],
   host: {
-    'class': 'is-block'
+    'class': 'is-block is-flex-desktop navbar is-success',
+    'role': 'navigation',
+    'aria-label': 'main navigation'
   },
   template: `
-    <nav class="navbar is-success mb-5" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand pl-3">
+      <div class="navbar-brand">
         <a (click)="toggleMenu()" class="navbar-burger">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -20,8 +21,8 @@ import { NavbarItemComponent } from './navbar-item.component';
         </a>
       </div>
       <div class="navbar-menu" [class.is-active]="menuIsActive()">
+        <div class="navbar-item">Filters:</div>
         <div class="navbar-start">
-          <div class="navbar-item">Filters:</div>
           <app-navbar-item filter="all()" [piping]="piping()" (change)="setFilter($event)">All</app-navbar-item>
           <app-navbar-item filter="experienced()" [piping]="piping()" (change)="setFilter($event)">Experienced</app-navbar-item>
           <app-navbar-item filter="flying()" [piping]="piping()" (change)="setFilter($event)">Flying</app-navbar-item>
@@ -31,14 +32,13 @@ import { NavbarItemComponent } from './navbar-item.component';
           <app-navbar-item filter="tall()" [piping]="piping()" (change)="setFilter($event)">Tall</app-navbar-item>
           <app-navbar-item filter="flying() | rare()" [piping]="piping()" (change)="setFilter($event)">Flying + Rare</app-navbar-item>
         </div>
-        <div class="navbar-end pr-3 is-hidden-touch">
+        <div class="navbar-end is-hidden-touch">
           <div class="navbar-item">
             Total:
             <span class="count">{{ count() }}</span>
           </div>
         </div>
       </div>
-    </nav>
   `,
   styles: [`
     .count {
