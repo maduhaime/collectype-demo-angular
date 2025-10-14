@@ -13,6 +13,7 @@ import { PokemonStatsComponent } from './components/pokemon-stats.component';
 import { FilterBreadcrumbComponent } from './components/filter-breadcrumb.component';
 import { PokemonTypeStatsComponent } from './components/pokemon-type-stats.component';
 import { SortNavbarComponent } from './components/sort-navbar.component';
+import { PaginationBarComponent } from './components/pagination-bar.component';
 
 /**
  * Pokemon data import (mocked for demo purposes)
@@ -28,7 +29,8 @@ import { pokemons } from '../data/pokemons';
     PokemonStatsComponent,
     FilterBreadcrumbComponent,
     PokemonTypeStatsComponent,
-    SortNavbarComponent
+    SortNavbarComponent,
+    PaginationBarComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
@@ -56,6 +58,12 @@ export class App implements OnInit {
   protected readonly sortDir = signal<SortDir>('asc');
 
   /**
+   * Current pagination page and perPage
+   */
+  protected page = signal<number>(1);
+  protected perPage = signal<number>(20);
+
+  /**
    * Filtered and sorted Pokemon collection
    */
   protected readonly filtered = computed(() => {
@@ -63,10 +71,18 @@ export class App implements OnInit {
   });
 
   /**
-   * Handles filter changes from navbar
+   * Paginated Pokemon collection
    */
-  protected handleNavChange(filter: string): void {
-    this.piping.set(filter);
+  protected readonly paginated = computed(() => {
+    return this.collection().fn.pipe(this.piping()).sort(this.sortField(), this.sortDir()).page(this.page(), this.perPage());
+  });
+
+  /**
+   * Handles expression changes
+   */
+  protected handleExpressionChange(newExpression: string): void {
+    this.page.set(1); // Reset to first page when changing filter
+    this.piping.set(newExpression);
   }
 
   /**
@@ -78,6 +94,17 @@ export class App implements OnInit {
   }
 
   /**
+   * Handles pagination changes
+   */
+  protected handlePageChange(event: { page: number; perPage: number }): void {
+    // Ignore les événements DOM qui ne sont pas nos événements personnalisés
+    if (!event || typeof event.page !== 'number' || typeof event.perPage !== 'number') {
+      return;
+    }
+
+    this.page.set(event.page);
+    this.perPage.set(event.perPage);
+  }  /**
    * Initializes Pokemon data on component initialization
    */
   ngOnInit(): void {

@@ -8,7 +8,7 @@ import { PokemonCollection } from '../../collections/PokemonCollection';
   standalone: true,
   imports: [CommonModule],
   host: {
-    'class': 'level'
+    'class': 'level is-hidden-touch'
   },
   template: `
     <div class="level-item has-text-centered">

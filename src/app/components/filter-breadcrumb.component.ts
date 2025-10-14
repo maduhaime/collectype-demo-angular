@@ -1,5 +1,6 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import type { CollectionInfo } from 'collectype';
 
 @Component({
   selector: 'app-filter-breadcrumb',
@@ -18,12 +19,12 @@ import { CommonModule } from '@angular/common';
           <span>Pokemons</span>
         </li>
 
-        @for (part of breadcrumb(); track $index) {
+        @for (step of info().steps; track $index) {
           <li>
             <span class="icon is-small">
               <i class="fas fa-filter" aria-hidden="true"></i>
             </span>
-            <span>{{ part }}</span>
+            <span>{{ step }}</span>
           </li>
         }
       </ul>
@@ -36,10 +37,8 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class FilterBreadcrumbComponent {
-  piping = input.required<string>();
-
-  protected breadcrumb = computed(() => {
-    const parts = this.piping().split('|').map((part: string) => part.trim());
-    return parts;
-  });
+  /**
+   * Signal containing the collection info with steps
+   */
+  info = input.required<CollectionInfo>();
 }

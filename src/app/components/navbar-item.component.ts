@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   host: {
-    '(click)': 'handleClick()',
+    '(click)': 'setExpression($event)',
     'class': 'navbar-item',
     '[class.is-active]': 'piping() === filter()'
   },
@@ -30,7 +30,8 @@ export class NavbarItemComponent {
   piping = input.required<string>();
   change = output<string>();
 
-  protected handleClick(): void {
+  protected setExpression(event: Event): void {
+    event.preventDefault();
     this.change.emit(this.filter());
   }
 }

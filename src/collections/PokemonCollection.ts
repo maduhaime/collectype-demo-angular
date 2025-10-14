@@ -8,27 +8,27 @@ import type { Pokemon } from '../models/Pokemon';
  */
 export class PokemonFunctions extends FullFunctions<Pokemon> {
   experienced(minExperience: number = 100): this {
-    return this.numberIsPositive('base_experience').numberGreaterOrEqual('base_experience', minExperience);
+    return this.begin(`Experienced (${minExperience}+ exp)`).numberIsPositive('base_experience').numberGreaterOrEqual('base_experience', minExperience).end();
   }
 
   flying(): this {
-    return this.arrayIncludes('types', 'flying');
+    return this.begin('Flying').arrayIncludes('types', 'flying').end();
   }
 
   intimidating(): this {
-    return this.setIncludes('abilities', 'intimidate');
+    return this.begin('Intimidating').setIncludes('abilities', 'intimidate').end();
   }
 
   legendary(flag: boolean = true): this {
-    return this.booleanEquals('is_legendary', flag);
+    return this.begin(`Legendary (${flag})`).booleanEquals('is_legendary', flag).end();
   }
 
   rare(threshold: number = 200): this {
-    return this.numberGreaterOrEqual('base_experience', threshold);
+    return this.begin(`Rare (${threshold}+ exp)`).numberGreaterOrEqual('base_experience', threshold).end();
   }
 
   tall(threshold: number = 20): this {
-    return this.numberGreaterOrEqual('height', threshold);
+    return this.begin(`Tall (${threshold}+ height)`).numberGreaterOrEqual('height', threshold).end();
   }
 }
 

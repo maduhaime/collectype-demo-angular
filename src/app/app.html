@@ -12,17 +12,17 @@
     </div>
   } @else {
     <div class="container">
-      <app-pokemon-stats class="mb-6 is-hidden-mobile" [pokemons]="collection().items" />
+      <app-pokemon-stats class="mb-6" [pokemons]="collection().items" />
 
       <div class="block mb-5">
         <app-filter-navbar
           [piping]="piping()"
           [count]="filtered().count"
-          (change)="handleNavChange($event)" />
+          (change)="handleExpressionChange($event)" />
       </div>
 
 
-      <app-filter-breadcrumb class="mb-5 is-hidden-mobile" [piping]="piping()" />
+      <app-filter-breadcrumb class="mb-5 is-hidden-mobile" [info]="filtered().info" />
 
       <app-pokemon-type-stats class="is-hidden-touch" [pokemons]="filtered().items" />
 
@@ -31,9 +31,15 @@
         [sortDir]="sortDir()"
         (change)="handleSortChange($event)" />
 
+      <hr />
+
+      <app-pagination-bar
+        [info]="paginated().info"
+        (change)="handlePageChange($event)" />
+
       <div class="fixed-grid has-1-cols-mobile has-4-cols-tablet has-5-cols-desktop">
         <div class="grid">
-          @for (pokemon of filtered().items; track pokemon.id) {
+          @for (pokemon of paginated().items; track pokemon.id) {
             <div class="cell">
               <app-pokemon-card [pokemon]="pokemon" />
             </div>
