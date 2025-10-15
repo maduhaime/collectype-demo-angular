@@ -16,7 +16,7 @@
 
       <div class="block mb-5">
         <app-filter-navbar
-          [piping]="piping()"
+          [current]="expression()"
           [count]="filtered().count"
           (change)="handleExpressionChange($event)" />
       </div>

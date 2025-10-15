@@ -16,35 +16,35 @@ import type { SortField } from '../../enums/PokemonSort';
         <div class="buttons has-addons">
           <button class="button is-info is-small"
                   (click)="setField('id')"
-                  [class.is-active]="sortField() === 'id'">ID</button>
+                  [class]="'button is-info is-small ' + fieldClass('id')">ID</button>
           <button class="button is-info is-small"
                   (click)="setField('name')"
-                  [class.is-active]="sortField() === 'name'">Name</button>
+                  [class]="'button is-info is-small ' + fieldClass('name')">Name</button>
           <button class="button is-info is-small"
                   (click)="setField('species')"
-                  [class.is-active]="sortField() === 'species'">Species</button>
+                  [class]="'button is-info is-small ' + fieldClass('species')">Species</button>
           <button class="button is-info is-small"
                   (click)="setField('generation')"
-                  [class.is-active]="sortField() === 'generation'">Generation</button>
+                  [class]="'button is-info is-small ' + fieldClass('generation')">Generation</button>
           <button class="button is-info is-small"
                   (click)="setField('base_experience')"
-                  [class.is-active]="sortField() === 'base_experience'">Base Experience</button>
+                  [class]="'button is-info is-small ' + fieldClass('base_experience')">Base Experience</button>
           <button class="button is-info is-small"
                   (click)="setField('height')"
-                  [class.is-active]="sortField() === 'height'">Height</button>
+                  [class]="'button is-info is-small ' + fieldClass('height')">Height</button>
           <button class="button is-info is-small"
                   (click)="setField('weight')"
-                  [class.is-active]="sortField() === 'weight'">Weight</button>
+                  [class]="'button is-info is-small ' + fieldClass('weight')">Weight</button>
         </div>
       </div>
       <div class="column is-narrow">
         <div class="buttons has-addons is-right">
           <button class="button is-info is-small"
                   (click)="setDir('asc')"
-                  [class.is-active]="sortDir() === 'asc'">ASC</button>
+                  [class]="'button is-info is-small ' + dirClass('asc')">ASC</button>
           <button class="button is-info is-small"
                   (click)="setDir('desc')"
-                  [class.is-active]="sortDir() === 'desc'">DESC</button>
+                  [class]="'button is-info is-small ' + dirClass('desc')">DESC</button>
         </div>
       </div>
     </div>
@@ -71,5 +71,13 @@ export class SortNavbarComponent {
   protected setDir(newDir: SortDir): void {
     this.dir.set(newDir);
     this.change.emit({ field: this.field(), dir: this.dir() });
+  }
+
+  protected fieldClass(f: SortField): string {
+    return f === this.field() ? 'is-active' : '';
+  }
+
+  protected dirClass(d: SortDir): string {
+    return d === this.dir() ? 'is-active' : '';
   }
 }

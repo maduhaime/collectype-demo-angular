@@ -49,7 +49,7 @@ export class App implements OnInit {
   /**
    * Current filter expression
    */
-  protected readonly piping = signal('all()');
+  protected readonly expression = signal('all()');
 
   /**
    * Current sort field and direction
@@ -67,14 +67,14 @@ export class App implements OnInit {
    * Filtered and sorted Pokemon collection
    */
   protected readonly filtered = computed(() => {
-    return this.collection().fn.pipe(this.piping()).sort(this.sortField(), this.sortDir());
+    return this.collection().fn.pipe(this.expression()).sort(this.sortField(), this.sortDir());
   });
 
   /**
    * Paginated Pokemon collection
    */
   protected readonly paginated = computed(() => {
-    return this.collection().fn.pipe(this.piping()).sort(this.sortField(), this.sortDir()).page(this.page(), this.perPage());
+    return this.collection().fn.pipe(this.expression()).sort(this.sortField(), this.sortDir()).page(this.page(), this.perPage());
   });
 
   /**
@@ -82,7 +82,7 @@ export class App implements OnInit {
    */
   protected handleExpressionChange(newExpression: string): void {
     this.page.set(1); // Reset to first page when changing filter
-    this.piping.set(newExpression);
+    this.expression.set(newExpression);
   }
 
   /**
@@ -110,7 +110,7 @@ export class App implements OnInit {
   ngOnInit(): void {
     try {
       this.fetched.set(pokemons);
-      this.piping.set('all()');
+      this.expression.set('all()');
     } catch (err) {
       console.error('Error fetching Pokemon:', err);
     }

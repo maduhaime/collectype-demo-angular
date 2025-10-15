@@ -1,4 +1,4 @@
-import { Component, input, output, EventEmitter, Output } from '@angular/core';
+import { Component, input, output, EventEmitter, Output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { CollectionInfo } from 'collectype';
 
@@ -21,7 +21,7 @@ import type { CollectionInfo } from 'collectype';
           href="#">Next</a>
 
         <ul class="pagination-list">
-          @for (n of getPageNumbers(); track n) {
+          @for (n of pageNumbers(); track n) {
             <li>
               <a
                 (click)="setPage(n); $event.preventDefault()"
@@ -112,12 +112,18 @@ export class PaginationBarComponent {
   }
 
   /**
-   * Gets array of page numbers for pagination links
+   * Computed property for page numbers (Vue-like)
    */
-  protected getPageNumbers(): number[] {
+  protected pageNumbers = computed(() => {
     const pageInfo = this.info().page;
     if (!pageInfo) return [];
-
     return Array.from({ length: pageInfo.totalPages }, (_, i) => i + 1);
+  });
+
+  /**
+   * @deprecated Use pageNumbers() instead
+   */
+  protected getPageNumbers(): number[] {
+    return this.pageNumbers();
   }
 }
