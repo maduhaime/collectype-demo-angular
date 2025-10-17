@@ -18,7 +18,7 @@ import { PaginationBarComponent } from './components/pagination-bar.component';
 /**
  * Pokemon data import (mocked for demo purposes)
  */
-import { pokemons } from '../data/pokemons';
+import { pokemons } from '../data';
 
 @Component({
   selector: 'app-root',

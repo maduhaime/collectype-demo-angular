@@ -1,6 +1,7 @@
 import { Component, input, output, EventEmitter, Output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { CollectionInfo } from 'collectype';
+import { paginationNumbers } from '../../utils/pagination';
 
 @Component({
   selector: 'app-pagination-bar',
@@ -21,13 +22,17 @@ import type { CollectionInfo } from 'collectype';
           href="#">Next</a>
 
         <ul class="pagination-list">
-          @for (n of pageNumbers(); track n) {
+          @for (page of pageNumbers(); track page) {
             <li>
-              <a
-                (click)="setPage(n); $event.preventDefault()"
-                class="pagination-link"
-                [class.is-current]="n === info().page!.current"
-                href="#">{{ n }}</a>
+              @if (page === '...') {
+                <span class="pagination-ellipsis">&hellip;</span>
+              } @else {
+                <a
+                  (click)="setPage(page); $event.preventDefault()"
+                  class="pagination-link"
+                  [class.is-current]="page === info().page!.current"
+                  href="#">{{ page }}</a>
+              }
             </li>
           }
         </ul>
@@ -85,9 +90,9 @@ export class PaginationBarComponent {
   /**
    * Sets the current page
    */
-  protected setPage(newPage: number): void {
+  protected setPage(newPage: number | string): void {
     const pageInfo = this.info().page;
-    if (!pageInfo) return;
+    if (!pageInfo || typeof newPage !== 'number') return;
 
     const { current, totalPages, perPage } = pageInfo;
     if (newPage === current || newPage < 1 || newPage > totalPages) return;
@@ -112,18 +117,11 @@ export class PaginationBarComponent {
   }
 
   /**
-   * Computed property for page numbers (Vue-like)
+   * Computed property for page numbers with ellipses support
    */
   protected pageNumbers = computed(() => {
     const pageInfo = this.info().page;
     if (!pageInfo) return [];
-    return Array.from({ length: pageInfo.totalPages }, (_, i) => i + 1);
+    return paginationNumbers(pageInfo.current, pageInfo.totalPages);
   });
-
-  /**
-   * @deprecated Use pageNumbers() instead
-   */
-  protected getPageNumbers(): number[] {
-    return this.pageNumbers();
-  }
 }
