@@ -15,6 +15,11 @@ export class PokemonFunctions extends FullFunctions<Pokemon> {
     return this.begin('Flying').arrayIncludes('types', 'flying').end();
   }
 
+  generation(gen: number | null): this {
+    if (gen === null) { return this.begin('All Generations').end() }
+    return this.begin(`Generation ${gen}`).numberEquals('generation', gen).end();
+  }
+
   intimidating(): this {
     return this.begin('Intimidating').setIncludes('abilities', 'intimidate').end();
   }

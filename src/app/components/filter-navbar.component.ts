@@ -23,7 +23,7 @@ import { NavbarItemComponent } from './navbar-item.component';
       <div class="navbar-menu" [class.is-active]="menuIsActive()">
         <div class="navbar-item">Filters:</div>
         <div class="navbar-start">
-          <app-navbar-item expression="all()" [current]="current()" (change)="handleExpressionChange($event)">All</app-navbar-item>
+          <app-navbar-item expression="all()" [current]="current()" (change)="handleExpressionChange($event)">No Filter</app-navbar-item>
           <app-navbar-item expression="experienced()" [current]="current()" (change)="handleExpressionChange($event)">Experienced</app-navbar-item>
           <app-navbar-item expression="flying()" [current]="current()" (change)="handleExpressionChange($event)">Flying</app-navbar-item>
           <app-navbar-item expression="intimidating()" [current]="current()" (change)="handleExpressionChange($event)">Intimidating</app-navbar-item>

@@ -7,13 +7,14 @@ import type { Pokemon } from '../models/Pokemon';
 import type { SortField } from '../enums/PokemonSort';
 
 // Component imports
-import { PokemonCardComponent } from './components/pokemon-card.component';
-import { FilterNavbarComponent } from './components/filter-navbar.component';
-import { PokemonStatsComponent } from './components/pokemon-stats.component';
 import { FilterBreadcrumbComponent } from './components/filter-breadcrumb.component';
+import { FilterNavbarComponent } from './components/filter-navbar.component';
+import { GenerationStatsComponent } from './components/generation-stats.component';
+import { PaginationBarComponent } from './components/pagination-bar.component';
+import { PokemonCardComponent } from './components/pokemon-card.component';
+import { PokemonStatsComponent } from './components/pokemon-stats.component';
 import { PokemonTypeStatsComponent } from './components/pokemon-type-stats.component';
 import { SortNavbarComponent } from './components/sort-navbar.component';
-import { PaginationBarComponent } from './components/pagination-bar.component';
 
 /**
  * Pokemon data import (mocked for demo purposes)
@@ -28,6 +29,7 @@ import { pokemons } from '../data';
     FilterNavbarComponent,
     PokemonStatsComponent,
     FilterBreadcrumbComponent,
+    GenerationStatsComponent,
     PokemonTypeStatsComponent,
     SortNavbarComponent,
     PaginationBarComponent
@@ -46,10 +48,16 @@ export class App implements OnInit {
    */
   protected readonly collection = computed(() => new PokemonCollection(this.fetched()));
 
+
+   /**
+   * Current generation number or null for all generations
+   */
+  protected readonly generation = signal<number | null>(null);
+
   /**
    * Current filter expression
    */
-  protected readonly expression = signal('all()');
+  protected readonly expression = signal<string>('all()');
 
   /**
    * Current sort field and direction
@@ -63,19 +71,35 @@ export class App implements OnInit {
   protected page = signal<number>(1);
   protected perPage = signal<number>(20);
 
+
+    /**
+   * Generationalized Pokemon collection
+   */
+  protected readonly generationalized = computed(() => {
+    return this.collection().fn.generation(this.generation());
+  });
+
   /**
    * Filtered and sorted Pokemon collection
    */
   protected readonly filtered = computed(() => {
-    return this.collection().fn.pipe(this.expression()).sort(this.sortField(), this.sortDir());
+    return this.collection().fn.generation(this.generation()).pipe(this.expression()).sort(this.sortField(), this.sortDir());
   });
 
   /**
    * Paginated Pokemon collection
    */
   protected readonly paginated = computed(() => {
-    return this.collection().fn.pipe(this.expression()).sort(this.sortField(), this.sortDir()).page(this.page(), this.perPage());
+    return this.collection().fn.generation(this.generation()).pipe(this.expression()).sort(this.sortField(), this.sortDir()).page(this.page(), this.perPage());
   });
+
+  /**
+   * Handles generation changes
+   */
+  protected handleGenerationChange(newGeneration: number | null): void {
+    this.page.set(1); // Reset to first page when changing filter
+    this.generation.set(newGeneration);
+  }
 
   /**
    * Handles expression changes

@@ -19,8 +19,8 @@ import { capitalize, padLeft } from '../../utils/string';
         <div class="level-item has-text-centered">
           <div>
             <p class="heading is-size-7">{{ capitalize(type) }}</p>
-            <p class="title has-text-primary is-size-4">
-              {{ padLeft(collection().fn.arrayIncludes('types', type).count, '0', 2) }}
+            <p class="title has-text-primary is-size-5">
+              {{ padLeft(collection().fn.arrayIncludes('types', type).count, '0', 3) }}
             </p>
           </div>
         </div>

@@ -12,7 +12,14 @@
     </div>
   } @else {
     <div class="container">
-      <app-pokemon-stats class="mb-6" [pokemons]="collection().items" />
+
+      <app-generation-stats
+      class="is-hidden-touch"
+      [pokemons]="collection().items"
+      [current]="generation()"
+      (change)="handleGenerationChange($event)" />
+
+      <app-pokemon-stats class="mb-6" [pokemons]="filtered().items" />
 
       <div class="block mb-5">
         <app-filter-navbar
@@ -20,7 +27,6 @@
           [count]="filtered().count"
           (change)="handleExpressionChange($event)" />
       </div>
-
 
       <app-filter-breadcrumb class="mb-5 is-hidden-mobile" [info]="filtered().info" />
 
