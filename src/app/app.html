@@ -19,29 +19,31 @@
       [current]="generation()"
       (change)="handleGenerationChange($event)" />
 
-      <app-pokemon-stats class="mb-6" [pokemons]="filtered().items" />
+      <app-pokemon-stats class="mb-5" [pokemons]="generationalized().items" />
 
-      <div class="block mb-5">
+      <div class="block mb-3">
         <app-filter-navbar
           [current]="expression()"
           [count]="filtered().count"
           (change)="handleExpressionChange($event)" />
       </div>
 
-      <app-filter-breadcrumb class="mb-5 is-hidden-mobile" [info]="filtered().info" />
+      <app-filter-breadcrumb class="mb-0 is-hidden-mobile" [info]="filtered().info" />
+
+      <hr class="my-3 is-hidden-touch" />
 
       <app-pokemon-type-stats class="is-hidden-touch" [pokemons]="filtered().items" />
 
-      <app-sort-navbar class="mb-5"
-        [sortField]="sortField()"
-        [sortDir]="sortDir()"
-        (change)="handleSortChange($event)" />
-
-      <hr />
+      <hr class="mt-3 mb-5 is-hidden-touch" />
 
       <app-pagination-bar
         [info]="paginated().info"
         (change)="handlePageChange($event)" />
+
+      <app-sort-navbar class="mb-3"
+        [sortField]="sortField()"
+        [sortDir]="sortDir()"
+        (change)="handleSortChange($event)" />
 
       <div class="fixed-grid has-1-cols-mobile has-4-cols-tablet has-5-cols-desktop">
         <div class="grid">

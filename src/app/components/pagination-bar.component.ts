@@ -9,7 +9,7 @@ import { paginationNumbers } from '../../utils/pagination';
   imports: [CommonModule],
   template: `
     @if (info().page) {
-      <nav class="pagination is-small" role="navigation">
+      <nav class="pagination is-small mb-3" role="navigation">
         <a
           (click)="setPage(info().page!.current - 1); $event.preventDefault()"
           class="pagination-previous"
@@ -38,7 +38,7 @@ import { paginationNumbers } from '../../utils/pagination';
         </ul>
       </nav>
 
-      <div class="columns is-mobile is-vcentered mb-5">
+      <div class="columns is-mobile is-vcentered mb-3">
         <div class="column">
           <p class="is-size-7">
             Items <b>{{ info().page!.startIndex + 1 }}</b> - <b>{{ info().page!.endIndex }}</b> of <b>{{ info().page!.totalItems }}</b>

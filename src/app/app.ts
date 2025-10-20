@@ -49,7 +49,7 @@ export class App implements OnInit {
   protected readonly collection = computed(() => new PokemonCollection(this.fetched()));
 
 
-   /**
+  /**
    * Current generation number or null for all generations
    */
   protected readonly generation = signal<number | null>(null);
@@ -71,8 +71,7 @@ export class App implements OnInit {
   protected page = signal<number>(1);
   protected perPage = signal<number>(20);
 
-
-    /**
+  /**
    * Generationalized Pokemon collection
    */
   protected readonly generationalized = computed(() => {

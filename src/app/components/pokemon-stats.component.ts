@@ -56,7 +56,12 @@ import { PokemonCollection } from '../../collections/PokemonCollection';
         <p class="title">{{ collection().count }}</p>
       </div>
     </div>
-  `
+  `,
+  styles: [`
+    .level-item {
+      width: calc(100% / 8)
+    }
+  `]
 })
 export class PokemonStatsComponent {
   pokemons = input.required<Pokemon[]>();

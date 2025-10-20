@@ -13,7 +13,6 @@ import { capitalize, padLeft } from '../../utils/string';
     'class': 'is-block'
   },
   template: `
-    <hr />
     <nav class="level">
       @for (type of pokemonTypes; track type) {
         <div class="level-item has-text-centered">
@@ -26,7 +25,6 @@ import { capitalize, padLeft } from '../../utils/string';
         </div>
       }
     </nav>
-    <hr />
   `
 })
 export class PokemonTypeStatsComponent {
