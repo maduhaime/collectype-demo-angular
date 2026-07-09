@@ -19,8 +19,8 @@ import { Generation } from '../../enums/Generation';
         (click)="setGeneration(null)"
         style="cursor: pointer; text-decoration: none;"
       >
-        <p class="heading is-size-5">All</p>
-        <a class="title has-text-primary is-size-5">
+        <p class="heading is-size-6">All</p>
+        <a class="title has-text-success is-size-4">
           {{ padLeft(collection().count, '0', 3) }}
         </a>
       </div>
@@ -33,8 +33,8 @@ import { Generation } from '../../enums/Generation';
           style="cursor: pointer; text-decoration: none;"
 
         >
-          <p class="heading is-size-5">Gen {{ gen }}</p>
-          <a class="title has-text-primary is-size-5">
+          <p class="heading is-size-6">Gen {{ gen }}</p>
+          <a class="title has-text-success is-size-4">
             {{ padLeft(collection().fn.numberEquals('generation', gen).count, '0', 3) }}
           </a>
         </div>
@@ -48,7 +48,7 @@ import { Generation } from '../../enums/Generation';
 
     div.is-active {
       color: var(--bulma-white);
-      background-color: var(--bulma-primary);
+      background-color: var(--bulma-success);
       border-radius: 0.5rem;
 
       a {
