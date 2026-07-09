@@ -62,17 +62,10 @@ import { paginationNumbers } from '../../utils/pagination';
     }
   `,
   styles: [`
-    a[href="#"] {
-      text-decoration: none;
-    }
-
-    a[href="#"]:hover {
-      text-decoration: none;
-    }
-
-    .is-disabled {
-      pointer-events: none;
-      opacity: 0.5;
+    .pagination {
+      --bulma-pagination-selected-item-h: 198deg;
+      --bulma-pagination-selected-item-s: 100%;
+      --bulma-pagination-selected-item-l: 70%;
     }
   `]
 })
